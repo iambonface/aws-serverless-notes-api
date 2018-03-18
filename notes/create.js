@@ -1,10 +1,8 @@
 import uuid from "uuid";
-import AWS from "aws-sdk";
+import * as dynamoDbLib from "./libs/dynamodb-lib";
+import { success, failure } from "./libs/response-lib";
 
-AWS.config.update({ region: "us-east-1" });
-const dynamoDb = new AWS.DynamoDB.DocumentClient();
-
-export function create(event, context, callback) {
+export async function create(event, context, callback) {
 	const data = JSON.parse(event.body);
 
 	const params = {
@@ -17,8 +15,14 @@ export function create(event, context, callback) {
 			createdAt: new Date().getTime()
 		}
 	};
+	try {
+		await dynamoDbLib.call("put", params);
+		callback(null, success(params.Item));
+	} catch (e) {
+		callback(null, failure({ status: false }));
+	}
 
-	dynamoDb.put(params, (error, data) => {
+	/*dynamoDb.put(params, (error, data) => {
 		const headers = {
 			"Access-Control-Allow-Origin": "*",
 			"Access-Control-Allow-Credentials": true
@@ -40,5 +44,5 @@ export function create(event, context, callback) {
 			body: JSON.stringify(params.Item)
 		};
 		callback(null, response);
-	});
+	});*/
 }
