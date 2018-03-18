@@ -16,7 +16,7 @@ provider:
   # Define permission for Lambda
   iamRoleStatements:
     - Effect: Allow
-      Allow:
+      Action:
         - dynamodb: DescribeTable
         - dynamodb: Query
         - dynamodb: Scan
