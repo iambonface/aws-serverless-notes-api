@@ -63,4 +63,13 @@ functions:
           cors: true
           authorizer: aws_iam
 
+  delete:
+    handler: notes/delete.notes
+    events:
+      - http:
+          path: notes/{id}
+          method: delete
+          cors: true
+          authorizer: aws_iam
+
 
