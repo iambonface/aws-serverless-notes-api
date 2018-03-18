@@ -73,7 +73,7 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.get = undefined;
+exports.notes = undefined;
 
 var _regenerator = __webpack_require__(1);
 
@@ -83,7 +83,7 @@ var _asyncToGenerator2 = __webpack_require__(2);
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-var get = exports.get = function () {
+var notes = exports.notes = function () {
 	var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(event, context, callback) {
 		var params, result;
 		return _regenerator2.default.wrap(function _callee$(_context) {
@@ -92,23 +92,19 @@ var get = exports.get = function () {
 					case 0:
 						params = {
 							TableName: "notes",
-							Key: {
-								userId: event.requestContext.identity.cognitoIdentityId,
-								noteId: event.pathParameters.id
+							KeyConditionExpression: "userId = :userId", //condition for query
+							ExpressionAttributeValues: {
+								":userId": event.requestContext.identity.cognitoIdentityId
 							}
 						};
 						_context.prev = 1;
 						_context.next = 4;
-						return dynamoDbLib.call("get", params);
+						return dynamoDbLib.call("query", params);
 
 					case 4:
 						result = _context.sent;
 
-						if (result.Item) {
-							callback(null, (0, _responseLib.success)(result.Item));
-						} else {
-							callback(null, (0, _responseLib.failure)({ status: false, error: "Note not found " }));
-						}
+						callback(null, (0, _responseLib.success)(result.Items));
 
 						_context.next = 11;
 						break;
@@ -127,7 +123,7 @@ var get = exports.get = function () {
 		}, _callee, this, [[1, 8]]);
 	}));
 
-	return function get(_x, _x2, _x3) {
+	return function notes(_x, _x2, _x3) {
 		return _ref.apply(this, arguments);
 	};
 }();
