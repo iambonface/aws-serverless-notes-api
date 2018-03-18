@@ -28,7 +28,7 @@ provider:
 
 functions:
   create:
-    handler: notes/create.create
+    handler: notes/create.notes
     events:
       - http:
           path: notes
@@ -37,7 +37,7 @@ functions:
           authorizer: aws_iam
 
   get:
-    handler: notes/get.get
+    handler: notes/get.notes
     events:
       - http:
           path: notes/{id}
