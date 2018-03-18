@@ -45,7 +45,6 @@ functions:
           cors: true
           authorizer: aws_iam
 
-
   list: 
     handler: notes/list.notes
     events:
@@ -54,3 +53,14 @@ functions:
           method: get
           cors: true
           authorizer: aws_iam
+
+  update: 
+    handler: notes/update.notes
+    events:
+      - http:
+          path: notes/{id}
+          method: put
+          cors: true
+          authorizer: aws_iam
+
+
