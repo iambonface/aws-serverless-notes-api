@@ -35,3 +35,12 @@ functions:
           method: post
           cors: true
           authorizer: aws_iam
+
+  get:
+    handler: notes/get.get
+    events:
+      - http:
+          path: notes/{id}
+          method: get
+          cors: true
+          authorizer: aws_iam
