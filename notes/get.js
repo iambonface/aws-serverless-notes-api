@@ -19,6 +19,7 @@ export async function notes(event, context, callback) {
 		}
 
 	} catch (e) {
+		console.log(e);
 		callback(null, failure({ status:  false }));
 	}
 }
